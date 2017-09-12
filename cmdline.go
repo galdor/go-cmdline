@@ -130,10 +130,19 @@ func (c *CmdLine) AddOption(short, long, value, desc string) {
 
 func (c *CmdLine) addOption(opt *Option) {
 	if opt.ShortName != "" {
+		if len(opt.ShortName) != 1 {
+			panic("option short names must be one character long")
+		}
+
 		c.Options[opt.ShortName] = opt
 	}
 
 	if opt.LongName != "" {
+		if len(opt.LongName) < 2 {
+			panic("option long names must be at least two" +
+				"characters long")
+		}
+
 		c.Options[opt.LongName] = opt
 	}
 }
