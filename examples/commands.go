@@ -38,13 +38,21 @@ func main() {
 		cmdFun = CmdBar
 	}
 
-	cmdFun(cmdline.CommandArgumentsValues())
+	cmdFun(cmdline.CommandNameAndArguments())
 }
 
 func CmdFoo(args []string) {
-	fmt.Printf("running command \"foo\" with arguments %v\n", args)
+	fmt.Printf("running command \"foo\" with arguments %v\n", args[1:])
 }
 
 func CmdBar(args []string) {
-	fmt.Printf("running command \"bar\" with arguments %v\n", args)
+	cmdline := cmdline.New()
+	cmdline.AddOption("n", "", "value", "an example value")
+	cmdline.Parse(args)
+
+	fmt.Printf("running command \"bar\" with arguments %v\n", args[1:])
+
+	if cmdline.IsOptionSet("n") {
+		fmt.Printf("n: %s\n", cmdline.OptionValue("n"))
+	}
 }

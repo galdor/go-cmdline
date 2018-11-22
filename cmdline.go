@@ -477,3 +477,11 @@ func (c *CmdLine) CommandArgumentsValues() []string {
 
 	return c.CommandArguments
 }
+
+func (c *CmdLine) CommandNameAndArguments() []string {
+	if len(c.Commands) == 0 {
+		panic("no command defined")
+	}
+
+	return append([]string{c.Command}, c.CommandArguments...)
+}
