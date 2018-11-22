@@ -402,7 +402,17 @@ func (c *CmdLine) PrintUsage(w io.Writer) {
 	if len(c.Commands) > 0 {
 		// Print commands
 		fmt.Fprintf(w, "\nCOMMANDS\n\n")
-		for _, cmd := range c.Commands {
+
+		names := make([]string, 0, len(c.Commands))
+		for name := range c.Commands {
+			names = append(names, name)
+		}
+
+		sort.Strings(names)
+
+		for _, name := range names {
+			cmd := c.Commands[name]
+
 			fmt.Fprintf(w, "%-*s  %s\n",
 				maxWidth, cmd.Name, cmd.Description)
 		}
