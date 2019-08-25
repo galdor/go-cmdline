@@ -43,20 +43,6 @@ func (opt *Option) SortKey() string {
 	return ""
 }
 
-type OptionArray []*Option
-
-func (opts OptionArray) Len() int {
-	return len(opts)
-}
-
-func (opts OptionArray) Less(i, j int) bool {
-	return opts[i].SortKey() < opts[j].SortKey()
-}
-
-func (opts OptionArray) Swap(i, j int) {
-	opts[i], opts[j] = opts[j], opts[i]
-}
-
 type Argument struct {
 	Name        string
 	Description string
@@ -368,13 +354,14 @@ func (c *CmdLine) PrintUsage(w io.Writer) {
 	// Print options
 	fmt.Fprintf(w, "OPTIONS\n\n")
 
-	opts := make([]*Option, len(optStrs))
-	i := 0
+	var opts []*Option
 	for opt, _ := range optStrs {
-		opts[i] = opt
-		i++
+		opts = append(opts, opt)
 	}
-	sort.Sort(OptionArray(opts))
+
+	sort.Slice(opts, func (i, j int) bool {
+		return opts[i].SortKey() < opts[j].SortKey()
+	})
 
 	for _, opt := range opts {
 		fmt.Fprintf(w, "%-*s  %s",
