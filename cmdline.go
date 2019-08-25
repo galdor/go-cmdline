@@ -22,9 +22,6 @@ import (
 	"sort"
 )
 
-// ---------------------------------------------------------------------------
-//  Option
-// ---------------------------------------------------------------------------
 type Option struct {
 	ShortName   string
 	LongName    string
@@ -60,9 +57,6 @@ func (opts OptionArray) Swap(i, j int) {
 	opts[i], opts[j] = opts[j], opts[i]
 }
 
-// ---------------------------------------------------------------------------
-//  Argument
-// ---------------------------------------------------------------------------
 type Argument struct {
 	Name        string
 	Description string
@@ -72,17 +66,11 @@ type Argument struct {
 	TrailingValues []string
 }
 
-// ---------------------------------------------------------------------------
-//  Command
-// ---------------------------------------------------------------------------
 type Command struct {
 	Name        string
 	Description string
 }
 
-// ---------------------------------------------------------------------------
-//  Command line
-// ---------------------------------------------------------------------------
 type CmdLine struct {
 	Options   map[string]*Option
 	Arguments []*Argument
