@@ -21,6 +21,6 @@ import (
 )
 
 func main() {
-	cmdline := cmdline.New()
-	cmdline.Parse(os.Args)
+	cl := cmdline.New()
+	cl.Parse(os.Args)
 }

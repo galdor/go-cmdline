@@ -22,25 +22,25 @@ import (
 )
 
 func main() {
-	cmdline := cmdline.New()
+	cl := cmdline.New()
 
-	cmdline.AddOption("a", "option-a", "value", "a simple option")
-	cmdline.SetOptionDefault("a", "42")
-	cmdline.AddOption("b", "", "value", "an short option")
-	cmdline.AddOption("", "option-c", "value", "a long option")
-	cmdline.AddFlag("d", "flag-d", "a simple flag")
+	cl.AddOption("a", "option-a", "value", "a simple option")
+	cl.SetOptionDefault("a", "42")
+	cl.AddOption("b", "", "value", "an short option")
+	cl.AddOption("", "option-c", "value", "a long option")
+	cl.AddFlag("d", "flag-d", "a simple flag")
 
-	cmdline.Parse(os.Args)
+	cl.Parse(os.Args)
 
-	fmt.Printf("a: %s\n", cmdline.OptionValue("a"))
+	fmt.Printf("a: %s\n", cl.OptionValue("a"))
 
-	if cmdline.IsOptionSet("b") {
-		fmt.Printf("b: %s\n", cmdline.OptionValue("b"))
+	if cl.IsOptionSet("b") {
+		fmt.Printf("b: %s\n", cl.OptionValue("b"))
 	}
 
-	if cmdline.IsOptionSet("option-c") {
-		fmt.Printf("option-c: %s\n", cmdline.OptionValue("option-c"))
+	if cl.IsOptionSet("option-c") {
+		fmt.Printf("option-c: %s\n", cl.OptionValue("option-c"))
 	}
 
-	fmt.Printf("d: %v\n", cmdline.IsOptionSet("d"))
+	fmt.Printf("d: %v\n", cl.IsOptionSet("d"))
 }

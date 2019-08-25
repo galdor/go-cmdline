@@ -22,23 +22,23 @@ import (
 )
 
 func main() {
-	cmdline := cmdline.New()
+	cl := cmdline.New()
 
-	cmdline.AddCommand("foo", "subcommand 1")
-	cmdline.AddCommand("bar", "subcommand 2")
+	cl.AddCommand("foo", "subcommand 1")
+	cl.AddCommand("bar", "subcommand 2")
 
-	cmdline.Parse(os.Args)
+	cl.Parse(os.Args)
 
 	var cmdFun func([]string)
 
-	switch cmdline.CommandName() {
+	switch cl.CommandName() {
 	case "foo":
 		cmdFun = CmdFoo
 	case "bar":
 		cmdFun = CmdBar
 	}
 
-	cmdFun(cmdline.CommandNameAndArguments())
+	cmdFun(cl.CommandNameAndArguments())
 }
 
 func CmdFoo(args []string) {
@@ -46,13 +46,13 @@ func CmdFoo(args []string) {
 }
 
 func CmdBar(args []string) {
-	cmdline := cmdline.New()
-	cmdline.AddOption("n", "", "value", "an example value")
-	cmdline.Parse(args)
+	cl := cmdline.New()
+	cl.AddOption("n", "", "value", "an example value")
+	cl.Parse(args)
 
 	fmt.Printf("running command \"bar\" with arguments %v\n", args[1:])
 
-	if cmdline.IsOptionSet("n") {
-		fmt.Printf("n: %s\n", cmdline.OptionValue("n"))
+	if cl.IsOptionSet("n") {
+		fmt.Printf("n: %s\n", cl.OptionValue("n"))
 	}
 }

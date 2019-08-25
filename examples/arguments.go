@@ -22,15 +22,15 @@ import (
 )
 
 func main() {
-	cmdline := cmdline.New()
+	cl := cmdline.New()
 
-	cmdline.AddArgument("foo", "the first argument")
-	cmdline.AddArgument("bar", "the second argument")
-	cmdline.AddTrailingArguments("name", "a trailing argument")
+	cl.AddArgument("foo", "the first argument")
+	cl.AddArgument("bar", "the second argument")
+	cl.AddTrailingArguments("name", "a trailing argument")
 
-	cmdline.Parse(os.Args)
+	cl.Parse(os.Args)
 
-	fmt.Printf("foo: %s\n", cmdline.ArgumentValue("foo"))
-	fmt.Printf("bar: %s\n", cmdline.ArgumentValue("bar"))
-	fmt.Printf("names: %v\n", cmdline.TrailingArgumentsValues("name"))
+	fmt.Printf("foo: %s\n", cl.ArgumentValue("foo"))
+	fmt.Printf("bar: %s\n", cl.ArgumentValue("bar"))
+	fmt.Printf("names: %v\n", cl.TrailingArgumentsValues("name"))
 }
