@@ -185,7 +185,9 @@ func (c *CmdLine) AddCommand(name, desc string) {
 
 func (c *CmdLine) Parse(args []string) {
 	if len(args) == 0 {
-		c.Die("empty argument array")
+		// Not supposed to happen, the first argument must always be the
+		// program name
+		panic("empty argument array")
 	}
 
 	c.ProgramName = args[0]
@@ -283,7 +285,10 @@ func (c *CmdLine) Parse(args []string) {
 
 func (c *CmdLine) Die(format string, args ...interface{}) {
 	msg := fmt.Sprintf(format, args...)
-	fmt.Fprintf(os.Stderr, "error: %s\n", msg)
+	fmt.Fprintf(os.Stderr, "error: %s\n\n", msg)
+
+	c.PrintUsage(os.Stderr)
+
 	os.Exit(1)
 }
 
