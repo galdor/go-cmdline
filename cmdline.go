@@ -222,8 +222,7 @@ func (c *CmdLine) Parse(args []string) {
 				args = args[1:]
 			} else {
 				if len(args) < 2 {
-					c.Die("missing value "+
-						"for option %q", key)
+					c.Die("missing value for option %q", key)
 				}
 
 				opt.Value = args[1]
@@ -359,7 +358,7 @@ func (c *CmdLine) PrintUsage(w io.Writer) {
 		opts = append(opts, opt)
 	}
 
-	sort.Slice(opts, func (i, j int) bool {
+	sort.Slice(opts, func(i, j int) bool {
 		return opts[i].SortKey() < opts[j].SortKey()
 	})
 
